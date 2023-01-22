@@ -16,6 +16,8 @@
 		7B1CBF9C297C83E000C31DCA /* FoodMenuTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1CBF9B297C83E000C31DCA /* FoodMenuTests.swift */; };
 		7B1CBFA6297C83E000C31DCA /* FoodMenuUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1CBFA5297C83E000C31DCA /* FoodMenuUITests.swift */; };
 		7B1CBFA8297C83E000C31DCA /* FoodMenuUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1CBFA7297C83E000C31DCA /* FoodMenuUITestsLaunchTests.swift */; };
+		7B1CBFB7297C85CD00C31DCA /* Tab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1CBFB6297C85CD00C31DCA /* Tab.swift */; };
+		7B1CBFB9297C894F00C31DCA /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1CBFB8297C894F00C31DCA /* Home.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +50,8 @@
 		7B1CBFA1297C83E000C31DCA /* FoodMenuUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FoodMenuUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B1CBFA5297C83E000C31DCA /* FoodMenuUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodMenuUITests.swift; sourceTree = "<group>"; };
 		7B1CBFA7297C83E000C31DCA /* FoodMenuUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodMenuUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		7B1CBFB6297C85CD00C31DCA /* Tab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.swift; sourceTree = "<group>"; };
+		7B1CBFB8297C894F00C31DCA /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +102,8 @@
 		7B1CBF84297C83DE00C31DCA /* FoodMenu */ = {
 			isa = PBXGroup;
 			children = (
+				7B1CBFB5297C85B500C31DCA /* Model */,
+				7B1CBFB4297C85A700C31DCA /* View */,
 				7B1CBF85297C83DE00C31DCA /* FoodMenuApp.swift */,
 				7B1CBF87297C83DE00C31DCA /* ContentView.swift */,
 				7B1CBF89297C83E000C31DCA /* Assets.xcassets */,
@@ -131,6 +137,22 @@
 				7B1CBFA7297C83E000C31DCA /* FoodMenuUITestsLaunchTests.swift */,
 			);
 			path = FoodMenuUITests;
+			sourceTree = "<group>";
+		};
+		7B1CBFB4297C85A700C31DCA /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7B1CBFB8297C894F00C31DCA /* Home.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		7B1CBFB5297C85B500C31DCA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7B1CBFB6297C85CD00C31DCA /* Tab.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -265,7 +287,9 @@
 			files = (
 				7B1CBF8F297C83E000C31DCA /* Persistence.swift in Sources */,
 				7B1CBF88297C83DE00C31DCA /* ContentView.swift in Sources */,
+				7B1CBFB7297C85CD00C31DCA /* Tab.swift in Sources */,
 				7B1CBF92297C83E000C31DCA /* FoodMenu.xcdatamodeld in Sources */,
+				7B1CBFB9297C894F00C31DCA /* Home.swift in Sources */,
 				7B1CBF86297C83DE00C31DCA /* FoodMenuApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
