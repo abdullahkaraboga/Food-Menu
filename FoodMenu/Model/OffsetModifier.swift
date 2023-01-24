@@ -26,7 +26,7 @@ struct OffsetModifier: ViewModifier {
             let offset = proxy.minY
             
             withAnimation(.easeOut){
-                currentTab = (offset < 20 && -offset < (proxy.minX / 2 ) && currentTab != tab.id) ? tab.id : currentTab
+                currentTab = (offset < 20 && -offset < (proxy.midX / 2 ) && currentTab != tab.id) ? "\(tab.id) SCROLL" : currentTab
             }
         }
     }

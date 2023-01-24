@@ -30,9 +30,9 @@ struct Home: View {
                             ForEach(tabItems) { tab in
                                 VStack {
                                     Text(tab.tab)
-                                        .foregroundColor(currentTab == tab.id ? .black : .gray)
+                                        .foregroundColor(currentTab.replacingOccurrences(of: " SCROLL", with: "") == tab.id ? .black : .gray)
 
-                                    if currentTab == tab.id {
+                                    if currentTab.replacingOccurrences(of: " SCROLL", with: "") == tab.id {
                                         Capsule()
                                             .fill(.black)
                                             .matchedGeometryEffect(id: "TAB", in: animation)
@@ -51,14 +51,21 @@ struct Home: View {
                                 }
                                     .onTapGesture {
                                     withAnimation(.easeInOut) {
-                                        currentTab = tab.id
-                                        proxy.scrollTo(currentTab, anchor: .topTrailing)
+                                        currentTab = "\(tab.id) TAP"
+                                        proxy.scrollTo(currentTab.replacingOccurrences(of: " TAP", with: ""), anchor: .topTrailing)
                                     }
                                 }
                             }
                         }
                             .padding(.horizontal, 30)
                     }
+                    .onChange(of: currentTab) { _ in
+                    if currentTab.contains(" SCROLL") {
+                        withAnimation(.easeInOut) {
+                            proxy.scrollTo(currentTab.replacingOccurrences(of: " SCROLL", with: ""), anchor: .topTrailing)
+                        }
+                    }
+                }
 
 
                 }.padding(.top)
@@ -72,27 +79,31 @@ struct Home: View {
             )
 
             ScrollView(.vertical, showsIndicators: false) {
-                
-                ScrollViewReader{ proxy in
-                    
-                    VStack(spacing : 15){
-                        
-                        ForEach(tabItems){tab in
-                            MenuCardView(tab:tab,currentTab: $currentTab)
+
+                ScrollViewReader { proxy in
+
+                    VStack(spacing: 15) {
+
+                        ForEach(tabItems) { tab in
+                            MenuCardView(tab: tab, currentTab: $currentTab)
                                 .padding(.top)
                         }
-                        
+
                     }
-                    .padding([.horizontal,.bottom])
-                    .onChange(of: currentTab) { newValue in
-                        withAnimation(.easeOut){
-                            proxy.scrollTo(currentTab,anchor: .topTrailing)
+                        .padding([.horizontal, .bottom])
+                        .onChange(of: currentTab) { newValue in
+                        if currentTab.contains(" TAP") {
+                            withAnimation(.easeOut) {
+                                proxy.scrollTo(currentTab.replacingOccurrences(of: " TAP", with: ""), anchor: .topTrailing)
+                            }
                         }
                     }
                 }
 
+                    
+
             }
-            .coordinateSpace(name: "SCROLL")
+                .coordinateSpace(name: "SCROLL")
         }
             .onAppear {
             currentTab = tabItems.first?.id ?? ""
@@ -109,42 +120,42 @@ struct Home_Previews: PreviewProvider {
 }
 
 
-struct MenuCardView : View{
-    var tab : Tab
+struct MenuCardView: View {
+    var tab: Tab
     @Binding var currentTab: String
-    var body : some View{
-        VStack(alignment: .leading,spacing: 20) {
+    var body: some View {
+        VStack(alignment: .leading, spacing: 20) {
             Text(tab.tab)
                 .font(.title.bold())
                 .padding(.vertical)
-            
+
             ForEach(tab.foods) { food in
                 HStack(spacing: 15) {
-                    VStack(alignment: .leading, spacing: 10){
+                    VStack(alignment: .leading, spacing: 10) {
                         Text(food.title)
                             .font(.title.bold())
-                        
+
                         Text(food.description)
                             .font(.caption)
                             .foregroundColor(.gray)
-                        
+
                         Text("Price: \(food.price)")
                             .fontWeight(.bold)
                     }
-                    .frame(maxWidth:.infinity,alignment: .leading)
-                    
+                        .frame(maxWidth: .infinity, alignment: .leading)
+
                     Image(food.image)
                         .resizable()
-                        .aspectRatio( contentMode: .fill)
-                        .frame(width: 75,height: 75)
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 75, height: 75)
                         .cornerRadius(10)
                 }
                 Divider()
-                
+
             }
         }
-        .modifier(OffsetModifier(tab: tab, currentTab: $currentTab))
-        
-        .id(tab.id)
+            .modifier(OffsetModifier(tab: tab, currentTab: $currentTab))
+
+            .id(tab.id)
     }
 }
