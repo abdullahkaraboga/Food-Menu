@@ -72,9 +72,27 @@ struct Home: View {
             )
 
             ScrollView(.vertical, showsIndicators: false) {
+                
+                ScrollViewReader{ proxy in
+                    
+                    VStack(spacing : 15){
+                        
+                        ForEach(tabItems){tab in
+                            MenuCardView(tab:tab,currentTab: $currentTab)
+                                .padding(.top)
+                        }
+                        
+                    }
+                    .padding([.horizontal,.bottom])
+                    .onChange(of: currentTab) { newValue in
+                        withAnimation(.easeOut){
+                            proxy.scrollTo(currentTab,anchor: .topTrailing)
+                        }
+                    }
+                }
 
             }
-
+            .coordinateSpace(name: "SCROLL")
         }
             .onAppear {
             currentTab = tabItems.first?.id ?? ""
@@ -91,4 +109,42 @@ struct Home_Previews: PreviewProvider {
 }
 
 
-
+struct MenuCardView : View{
+    var tab : Tab
+    @Binding var currentTab: String
+    var body : some View{
+        VStack(alignment: .leading,spacing: 20) {
+            Text(tab.tab)
+                .font(.title.bold())
+                .padding(.vertical)
+            
+            ForEach(tab.foods) { food in
+                HStack(spacing: 15) {
+                    VStack(alignment: .leading, spacing: 10){
+                        Text(food.title)
+                            .font(.title.bold())
+                        
+                        Text(food.description)
+                            .font(.caption)
+                            .foregroundColor(.gray)
+                        
+                        Text("Price: \(food.price)")
+                            .fontWeight(.bold)
+                    }
+                    .frame(maxWidth:.infinity,alignment: .leading)
+                    
+                    Image(food.image)
+                        .resizable()
+                        .aspectRatio( contentMode: .fill)
+                        .frame(width: 75,height: 75)
+                        .cornerRadius(10)
+                }
+                Divider()
+                
+            }
+        }
+        .modifier(OffsetModifier(tab: tab, currentTab: $currentTab))
+        
+        .id(tab.id)
+    }
+}
